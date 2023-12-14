@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>逆序数计算器</title>
+</head>
+<body>
+    <h1>逆序数计算器</h1>
+    <label for="numbers">输入数字序列：</label>
+    <input type="text" id="numbers">
+    <button onclick="calculateInversions()">计算</button>
+    <br>
+    <div id="result"></div>
+
+    <script>
+        function reversePairs(nums) {
+            let count = 0;
+            nums.sort((a, b) => a - b);
+            let left = 0, right = nums.length - 1;
+            while (left < right) {
+                if (nums[left] * 2 > nums[right]) {
+                    count += right - left;
+                    right--;
+                } else {
+                    left++;
+                }
+            }
+            return count;
+        }
+
+        function calculateInversions() {
+            const input = document.getElementById('numbers').value;
+            const nums = input.split(' ').map(Number);
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `逆序数为：${reversePairs(nums)}`;
+        }
+    </script>
+</body>
+</html>

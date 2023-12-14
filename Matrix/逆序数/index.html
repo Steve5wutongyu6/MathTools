@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>逆序数计算器</title>
-    <script>
+    <!--<script>
         function calculateInversions() {
             var input = document.getElementById('numbers').value;
             var numbers = input.split(' ').map(Number);
@@ -19,6 +19,29 @@
             
             // 显示结果
             document.getElementById('result').innerHTML = '逆序数：' + inversions;
+        }
+    </script> -->
+    <script>
+        function reversePairs(nums) {
+            let count = 0;
+            nums.sort((a, b) => a - b);
+            let left = 0, right = nums.length - 1;
+            while (left < right) {
+                if (nums[left] * 2 > nums[right]) {
+                    count += right - left;
+                    right--;
+                } else {
+                    left++;
+                }
+            }
+            return count;
+        }
+
+        function calculateInversions() {
+            const input = document.getElementById('numbers').value;
+            const nums = input.split(' ').map(Number);
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `逆序数为：${reversePairs(nums)}`;
         }
     </script>
 </head>
