@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>矩阵计算器</title>
+    <style>
+        /* CSS样式可以根据需要进行修改 */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .input-box {
+            margin-bottom: 10px;
+        }
+        .result {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+    <script src="math.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>矩阵计算器</h1>
+        <div class="input-box">
+            <label for="matrixA">矩阵A:</label>
+            <textarea id="matrixA" rows="4" cols="50"></textarea>
+        </div>
+        <div class="input-box">
+            <label for="matrixB">矩阵B:</label>
+            <textarea id="matrixB" rows="4" cols="50"></textarea>
+        </div>
+        <button id="addButton">相加</button>
+        <button id="subtractButton">相减</button>
+        <button id="multiplyButton">相乘</button>
+        <button id="inverseButton">求逆矩阵</button>
+        <div class="result">
+            <p>结果:</p>
+            <p id="resultValue"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

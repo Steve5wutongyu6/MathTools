@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>逆矩阵计算器</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      margin: 20px auto;
+      width: 400px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 200px;
+      padding: 5px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .result {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+  <script src="./math.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>逆矩阵计算器</h1>
+    <label for="matrixInput">请输入一个数字矩阵：</label>
+    <textarea id="matrixInput" placeholder="以逗号分隔，换行代表新的一行"></textarea>
+    <button onclick="calculateInverseMatrix()">计算逆矩阵</button>
+    <div class="result" id="resultContainer"></div>
+  </div>
+
+  <script src="math.js"></script>
+  <script>
+    function calculateInverseMatrix() {
+      const userInput = document.getElementById('matrixInput').value;
+
+      // 将用户输入的字符串解析成矩阵
+      const matrixStr = userInput.split('\n').map(row => row.split(','));
+      const matrix = math.matrix(matrixStr);
+
+      // 计算逆矩阵
+      let inverseMatrix;
+      try {
+        inverseMatrix = math.inv(matrix);
+        showResult(math.format(inverseMatrix, { precision: 14 }));
+      } catch (error) {
+        showResult('无法计算矩阵的逆矩阵。');
+        console.error(error);
+      }
+    }
+
+    function showResult(result) {
+      document.getElementById('resultContainer').textContent = '逆矩阵：\n\n' + result;
+    }
+  </script>
+</body>
+</html>
