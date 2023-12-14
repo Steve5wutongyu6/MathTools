@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>行列式计算器</title>
+  <style>
+    /* CSS 样式 */
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 10px;
+    }
+
+    .matrix-input {
+      width: 30px;
+      text-align: center;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>行列式计算器</h2>
+    
+    <div class="form-group">
+      <label for="dimension">矩阵维度：</label>
+      <input type="number" id="dimension" min="1">
+    </div>
+    
+    <div id="matrixInputs"></div>
+    
+    <button onclick="generateMatrixInputs()">生成输入框</button>
+    <button onclick="calculateDeterminant()">计算行列式</button>
+    
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function generateMatrixInputs() {
+      const dimension = document.getElementById('dimension').value;
+      const matrixInputs = document.getElementById('matrixInputs');
+      
+      // 清空输入
+      matrixInputs.innerHTML = '';
+      
+      // 生成矩阵输入表单
+      for (let i = 0; i < dimension; i++) {
+        for (let j = 0; j < dimension; j++) {
+          const input = document.createElement('input');
+          input.type = 'number';
+          input.className = 'matrix-input';
+          matrixInputs.appendChild(input);
+        }
+        
+        const lineBreak = document.createElement('br');
+        matrixInputs.appendChild(lineBreak);
+      }
+    }
+
+    function calculateDeterminant() {
+      const dimension = document.getElementById('dimension').value;
+      const matrixInputs = document.getElementsByClassName('matrix-input');
+      
+      // 构建矩阵
+      let matrix = [];
+      for (let i = 0; i < matrixInputs.length; i++) {
+        if (i % dimension === 0) {
+          matrix.push([]);
+        }
+        matrix[matrix.length - 1].push(Number(matrixInputs[i].value));
+      }
+      
+      // 计算行列式
+      const determinant = calculateMatrixDeterminant(matrix, dimension);
+      
+      // 显示结果
+      const resultElement = document.getElementById('result');
+      resultElement.textContent = `行列式的值为：${determinant}`;
+    }
+    
+    function calculateMatrixDeterminant(matrix, dimension) {
+      if (dimension === 1) {
+        return matrix[0][0];
+      } else if (dimension === 2) {
+        return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+      } else {
+        let sum = 0;
+        for (let c = 0; c < dimension; c++) {
+          const subMatrix = [];
+          for (let i = 1; i < dimension; i++) {
+            subMatrix.push(matrix[i].slice(0, c).concat(matrix[i].slice(c + 1)));
+          }
+          sum += Math.pow(-1, c) * matrix[0][c] * calculateMatrixDeterminant(subMatrix, dimension - 1);
+        }
+        return sum;
+      }
+    }
+  </script>
+</body>
+</html>

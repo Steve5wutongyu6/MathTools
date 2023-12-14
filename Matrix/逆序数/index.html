@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>计算逆序数</title>
-    <script src="./app.js"></script>
+    <title>逆序数计算器</title>
+    <script>
+        function calculateInversions() {
+            var input = document.getElementById('numbers').value;
+            var numbers = input.split(' ').map(Number);
+            
+            // 计算逆序数
+            var inversions = 0;
+            for (var i = 0; i < numbers.length - 1; i++) {
+                for (var j = i + 1; j < numbers.length; j++) {
+                    if (numbers[i] > numbers[j]) {
+                        inversions++;
+                    }
+                }
+            }
+            
+            // 显示结果
+            document.getElementById('result').innerHTML = '逆序数：' + inversions;
+        }
+    </script>
 </head>
-
 <body>
-    <h1>计算逆序数</h1>
-    <div>
-        <label for="inputArray">输入数组（以逗号分隔）：</label>
-        <input type="text" id="inputArray">
-    </div>
-    <button onclick="calculate()">计算逆序数</button>
-    <p id="result"></p>
+    <h1>逆序数计算器</h1>
+    <label for="numbers">输入数字序列（以逗号分隔）：</label>
+    <input type="text" id="numbers">
+    <button onclick="calculateInversions()">计算</button>
+    <br>
+    <div id="result"></div>
 </body>
-
 </html>
